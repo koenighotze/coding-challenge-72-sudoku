@@ -1,0 +1,13 @@
+[MESSAGES CONTROL]
+
+disable=
+    missing-docstring,
+    too-few-public-methods,
+    # We anticipate #3512 where it will become optional
+    fixme,
+    missing-module-docstring,
+    missing-function-docstring,
+
+[FORMAT]
+
+max-line-length=120

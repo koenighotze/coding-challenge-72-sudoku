@@ -8,4 +8,5 @@ class Block:
         return self.block == other.block
 
     def __str__(self):
-        return "\n".join(' '.join(str(cell) for cell in row) for row in self.block)
+        return "\n".join(' '.join(str(cell) for cell in row)
+                         for row in self.block)

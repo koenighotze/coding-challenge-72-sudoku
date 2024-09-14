@@ -1,4 +1,6 @@
 from enum import Enum
+
+
 class BlockPosition(Enum):
     TOP_LEFT = (0, 0)
     TOP_CENTER = (0, 3)
