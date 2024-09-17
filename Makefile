@@ -1,5 +1,6 @@
 init:
-	pip install -r requirements.txt
+	python3 -m pip install --upgrade pip
+	python3 -m pip install -r requirements.txt
 
 autoformat: init
 	autopep8 --in-place -r --aggressive --aggressive sudoku tests
@@ -12,8 +13,14 @@ pylint: autoformat
 	pylint --recursive=yes --disable=missing-docstring,line-too-long,too-few-public-methods sudoku tests
 
 test: init
-	py.test --cov=sudoku tests
+	pytest -v tests
+
+test.coverage: init
+	pytest --cov=sudoku tests
 
 qa: lint pylint test
+
+freeze:
+	python3 -m pip freeze > requirements.txt
 
 .PHONY: init test
