@@ -65,16 +65,17 @@ class TestPuzzle:
 
         assert expected == p.get_value_at(row=row, col=col)
 
-    def test_getting_a_block(self):
+
+    @pytest.mark.parametrize("expected, position", [
+        ([[0, 0, 0], [0, 5, 0], [6, 0, 0]], BlockPosition.TOP_LEFT),
+        ([[1, 2, 9], [0, 0, 0], [0, 0, 3]], BlockPosition.BOTTOM_CENTER),
+        ([[9, 0, 0], [6, 8, 1], [5, 0, 0]], BlockPosition.MIDDLE_CENTER),
+    ])
+    def test_getting_a_block(self, expected, position):
         p = Puzzle(self.test_puzzle_configuration)
 
-        assert p.get_block(BlockPosition.TOP_LEFT) == Block(
-            [[0, 0, 0], [0, 5, 0], [6, 0, 0]])
-        assert p.get_block(BlockPosition.BOTTOM_CENTER) == Block(
-            [[1, 2, 9], [0, 0, 0], [0, 0, 3]])
-        assert p.get_block(BlockPosition.MIDDLE_CENTER) == Block(
-            [[9, 0, 0], [6, 8, 1], [5, 0, 0]])
-
+        assert p.get_block(position) == Block(
+            expected)
 
 if __name__ == '__main__':
     pytest.main()
