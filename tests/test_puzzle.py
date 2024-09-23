@@ -65,7 +65,6 @@ class TestPuzzle:
 
         assert expected == p.get_value_at(row=row, col=col)
 
-
     @pytest.mark.parametrize("expected, position", [
         ([[0, 0, 0], [0, 5, 0], [6, 0, 0]], BlockPosition.TOP_LEFT),
         ([[1, 2, 9], [0, 0, 0], [0, 0, 3]], BlockPosition.BOTTOM_CENTER),

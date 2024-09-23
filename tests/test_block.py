@@ -17,6 +17,19 @@ class TestBlock:
 
         assert a_block == Block([[1, 2, 9], [0, 0, 0], [0, 0, 3]])
 
+    @pytest.mark.parametrize(
+        "block, is_solved",
+        [
+            ([[1, 2, 9], [0, 0, 0], [0, 0, 3]], False),
+            ([[1, 2, 3], [4, 5, 6], [7, 8, 9]], True),
+            ([[0, 0, 0], [0, 0, 0], [0, 0, 0]], False),
+            ([[9, 9, 9], [0, 0, 0], [0, 0, 0]], False),
+            ([[9, 8, 7], [1, 2, 3], [4, 6, 5]], True),
+        ],
+    )
+    def test_solved(self, block, is_solved):
+        assert Block(block).is_solved() == is_solved
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     pytest.main()
