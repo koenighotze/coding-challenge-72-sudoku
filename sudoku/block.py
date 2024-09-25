@@ -3,10 +3,10 @@ class Block:
         self.block = block
 
     def is_solved(self) -> bool:
-        target: list[int] = list(range(1, 10))
-        flattened = [element for row in self.block for element in row]
+        target: set[int] = set(range(1, 10))
+        flattened = {element for row in self.block for element in row}
 
-        return len([missing for missing in target if missing not in flattened]) == 0
+        return len(target - flattened) == 0
 
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Block):
