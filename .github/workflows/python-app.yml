@@ -10,19 +10,29 @@ permissions:
   contents: read
 
 jobs:
-  build:
-
+  qa:
     runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
+    - uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-    - name: Lint
-      run: |
-        make lint
+    - run: |
+        make init
+    - run: |
+        make qa
+
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - run: |
+        make init
     - name: Test
       run: |
-        make test
+        make test.coverage

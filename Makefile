@@ -3,22 +3,26 @@ init:
 	python3 -m pip install -r requirements.txt
 
 autoformat: 
-	autopep8 --in-place -r --aggressive --aggressive sudoku tests
+	python3 -m black --fast -v .
 
-lint: autoformat
-	#flake8 sudoku --exclude=venv --count --select=E9,F63,F7,F82 --show-source --statistics
-	flake8 sudoku --exclude=venv --count --show-source --statistics
+lint.code: 
+	python3 -m pydocstyle sudoku tests *py
 
-pylint: autoformat
-	pylint --recursive=yes --disable=missing-docstring,line-too-long,too-few-public-methods sudoku tests
+lint.docs: 
+	python3 -m pydocstyle sudoku tests *py
 
-test: 
+lint.types:
+	python -m mypy .
+
+lint: lint.code lint.code lint.types
+
+test:  
 	pytest -v tests
 
 test.coverage:
 	pytest --cov=sudoku tests
 
-qa: lint pylint test
+qa: lint test
 
 freeze:
 	python3 -m pip freeze > requirements.txt

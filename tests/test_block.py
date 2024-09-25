@@ -4,12 +4,12 @@ from sudoku.block import Block
 
 
 class TestBlock:
-    def test_equals_false(self):
+    def test_equals_false(self) -> None:
         a_block = Block([[1, 2, 9], [0, 0, 0], [0, 0, 3]])
 
         assert a_block != Block([[1, 2, 9], [0, 0, 0], [0, 0, 4]])
 
-    def test_equals_true(self):
+    def test_equals_true(self) -> None:
         a_block = Block([[1, 2, 9], [0, 0, 0], [0, 0, 3]])
 
         # pylint: disable=comparison-with-itself
@@ -27,7 +27,7 @@ class TestBlock:
             ([[9, 8, 7], [1, 2, 3], [4, 6, 5]], True),
         ],
     )
-    def test_solved(self, block, is_solved):
+    def test_solved(self, block: list[list[int]], is_solved: bool) -> None:
         assert Block(block).is_solved() == is_solved
 
 

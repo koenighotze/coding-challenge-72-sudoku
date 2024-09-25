@@ -1,17 +1,17 @@
 class Block:
-    def __init__(self, block):
+    def __init__(self, block: list[list[int]]) -> None:
         self.block = block
 
-    def is_solved(self):
-        target = [i for i in range(1, 10)]
+    def is_solved(self) -> bool:
+        target: list[int] = list(range(1, 10))
         flattened = [element for row in self.block for element in row]
 
         return len([missing for missing in target if missing not in flattened]) == 0
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, Block):
             return False
         return self.block == other.block
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "\n".join(" ".join(str(cell) for cell in row) for row in self.block)
