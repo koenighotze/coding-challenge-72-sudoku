@@ -1,4 +1,4 @@
-name: Build
+name: QA
 
 on:
   push:
@@ -22,17 +22,3 @@ jobs:
         make init
     - run: |
         make qa
-
-  build:
-    runs-on: ubuntu-24.04
-
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - run: |
-        make init
-    - name: Test
-      run: |
-        make test.coverage
