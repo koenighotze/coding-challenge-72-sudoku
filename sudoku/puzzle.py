@@ -17,9 +17,9 @@ class Puzzle:
 
     def get_block(self, position: BlockPosition) -> Block:
         row, col = position.value
-        block: list[list[int]] = []
-        for i in range(row, row + 3):
-            block.append(self.puzzle[i][col : col + 3])
+
+        block = [self.puzzle[i][col : col + 3] for i in range(row, row + 3)]
+
         return Block(block)
 
     def is_solved(self) -> bool:
