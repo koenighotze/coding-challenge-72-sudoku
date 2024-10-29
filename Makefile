@@ -1,30 +1,28 @@
 init:
-	python3 -m pip install --upgrade pip
-	python3 -m pip install -r requirements.txt
+	uv pip install -r requirements.txt
+	# uv tool install black
+	# uv tool install ruff
+	# uv tool install pydocstyle
+	# uv tool install 
 
 autoformat: 
-	python3 -m black --fast -v .
+	uv run -- black --fast -v .
 
-lint.code: 
-	python3 -m pydocstyle sudoku tests *py
+lint.code:
+	uv run -- pydocstyle sudoku tests *py
 
 lint.docs: 
-	python3 -m pydocstyle sudoku tests *py
+	uv run -- pydocstyle sudoku tests *py
 
-lint.types:
-	python -m mypy .
+# lint.types:
+#     python -m mypy .
 
-lint: lint.code lint.code lint.types
+# lint: lint.code lint.docs lint.types
 
-test:  
-	pytest -v tests
+# test:  
+#     uv -m pytest -v tests
 
-test.coverage:
-	pytest --cov=sudoku tests
+# test.coverage:
+#     uv -m pytest --cov=sudoku tests
 
-qa: lint test
-
-freeze:
-	python3 -m pip freeze > requirements.txt
-
-.PHONY: init test
+# qa: lint test

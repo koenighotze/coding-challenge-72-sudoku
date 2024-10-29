@@ -21,3 +21,5 @@
 - API
 - UI
 - Format
+- use Ruff
+- use uv
