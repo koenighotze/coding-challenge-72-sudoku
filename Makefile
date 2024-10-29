@@ -1,40 +1,59 @@
-init:
-	python3 -m pip install --upgrade pip
-	python3 -m pip install -r requirements.txt
+PYTHON_VERSION := 3.12
+UV := uv
+PIP := $(UV) pip
+RUN := $(UV) run --python $(PYTHON_VERSION)
+VENV := .venv
 
+# Declare all non-file targets as phony to ensure they always run
+.PHONY: all install-uv init clean local.setup autoformat lint test qa freeze
+
+# Default target: run all quality assurance checks
+all: qa
+
+# Install uv if not present
+install-uv:
+	@command -v $(UV) >/dev/null 2>&1 || { echo "Installing uv..."; curl -LsSf https://astral.sh/uv/install.sh | sh; }
+
+# Initialize the project environment
+init: install-uv
+	$(PIP) install --upgrade pip
+	$(PIP) install -r requirements.txt
+
+# Clean up generated files and directories
 clean:
-	rm -fr 3.10/ .venv/ __pycache__/ bin/ lib/ include/ .pytest_cache/ .coverage  .mypy_cache/
+	rm -rf 3.10/ $(VENV)/ __pycache__/ bin/ lib/ include/ .pytest_cache/ .coverage .mypy_cache/
 
-# Run this to prepare your local environment
-local.setup: 
-	python3 -m venv .venv
-	. .venv/bin/activate
-	make init
-	echo "Do not forget to . .venv/bin/activate"
+# Set up local development environment
+local.setup: install-uv
+	$(UV) venv
+	@echo "Virtual environment created. Activate it with: source $(VENV)/bin/activate"
+	@echo "Then run: make init"
 
+# Auto-format code
 autoformat: 
-	python3 -m black --fast -v .
+	$(RUN) black --fast -v .
 
 lint.code: 
-	python3 -m pydocstyle sudoku tests *py
+	$(RUN) pydocstyle sudoku tests *py
 
-lint.docs: 
-	python3 -m pydocstyle sudoku tests *py
-
+# Check types
 lint.types:
-	python -m mypy .
+	$(RUN) mypy .
 
-lint: lint.code lint.code lint.types
+# Run all linters
+lint: lint.code lint.types
 
+# Run tests
 test:  
-	pytest -v tests
+	$(RUN) pytest -v tests
 
+# Run tests with coverage
 test.coverage:
-	pytest --cov=sudoku tests
+	$(RUN) pytest --cov=sudoku tests
 
+# Run all quality assurance checks
 qa: lint test
 
+# Freeze dependencies
 freeze:
-	python3 -m pip freeze > requirements.txt
-
-.PHONY: init test
+	$(PIP) freeze > requirements.txt
