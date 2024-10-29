@@ -30,25 +30,25 @@ local.setup: install-uv
 	@echo "Then run: make init"
 
 # Auto-format code
-autoformat: 
+autoformat: init
 	$(RUN) black --fast -v .
 
-lint.code: 
+lint.code: init
 	$(RUN) pydocstyle sudoku tests *py
 
 # Check types
-lint.types:
+lint.types: init
 	$(RUN) mypy .
 
 # Run all linters
 lint: lint.code lint.types
 
 # Run tests
-test:  
+test: init
 	$(RUN) pytest -v tests
 
 # Run tests with coverage
-test.coverage:
+test.coverage: init
 	$(RUN) pytest --cov=sudoku tests
 
 # Run all quality assurance checks
