@@ -15,7 +15,7 @@ install-uv:
 	@command -v $(UV) >/dev/null 2>&1 || { echo "Installing uv..."; curl -LsSf https://astral.sh/uv/install.sh | sh; }
 
 # Initialize the project environment
-init: install-uv
+init:
 	$(PIP) install --upgrade pip
 	$(PIP) install -r requirements.txt
 
