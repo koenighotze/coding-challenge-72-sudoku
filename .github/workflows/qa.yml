@@ -20,6 +20,9 @@ jobs:
       with:
         python-version: "3.12"
     - run: |
+        make local.setup
+        . venv/bin/activate
+    - run: |
         make init
     - run: |
         make qa
