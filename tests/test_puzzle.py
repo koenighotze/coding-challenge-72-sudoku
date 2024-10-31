@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import pytest
+
 from sudoku.block import Block
-from sudoku.puzzle import Puzzle
 from sudoku.block_position import BlockPosition
+from sudoku.puzzle import Puzzle
 
 
 class TestPuzzle:
@@ -50,9 +51,7 @@ class TestPuzzle:
             (3, 3, 5),
         ],
     )
-    def test_the_constructor_with_puzzle(
-        self, expected: int, row: int, col: int
-    ) -> None:
+    def test_the_constructor_with_puzzle(self, expected: int, row: int, col: int) -> None:
         p = Puzzle(
             [
                 [1, 2, 3, 0, 0, 0, 0, 0, 0],
@@ -77,9 +76,7 @@ class TestPuzzle:
             ([[9, 0, 0], [6, 8, 1], [5, 0, 0]], BlockPosition.MIDDLE_CENTER),
         ],
     )
-    def test_getting_a_block(
-        self, expected: list[list[int]], position: BlockPosition
-    ) -> None:
+    def test_getting_a_block(self, expected: list[list[int]], position: BlockPosition) -> None:
         p = Puzzle(self.test_puzzle_configuration)
 
         assert p.get_block(position) == Block(expected)

@@ -13,11 +13,14 @@
 
 ## TODO
 
-- Lint Python
-- Lint MD
-- Test
-- Containerize
-- Application
-- API
-- UI
-- Format
+- [x] Lint Python
+- [ ] Lint MD
+- [x] Test
+- [ ] Containerize
+- [ ] Application
+- [ ] API
+- [ ] UI
+- [ ] Format
+- [ ] UV
+- [ ] pydantic
+- [ ] ruff
